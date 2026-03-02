@@ -2,6 +2,7 @@
 
 ### Fixed
 - `autotask_create_ticket` now surfaces Autotask API validation errors (e.g. "When assigning a Resource, you must assign both a assignedResourceID and assignedResourceRoleID.") instead of returning a generic "Server error (500): Internal Server Error" (#32)
+- `autotask_create_ticket_note` now uses the correct `/Tickets/{ticketId}/Notes` sub-resource URL instead of the flat `/TicketNotes` endpoint, which returned "Resource not found" for valid tickets; also fixes the body field name (`ticketID`) and applies the same correction to project and company note creation (#33)
 
 ### Added
 - `assignedResourceRoleID` parameter to `autotask_create_ticket` tool schema; Autotask requires this field whenever `assignedResourceID` is set

@@ -1008,20 +1008,22 @@ export class AutotaskService {
     const client = await this.ensureClient();
     try {
       this.logger.debug(`Creating note for ${parentField}=${parentId}:`, note);
-      const noteData = { ...note, [parentField]: parentId };
-      // autotask-node v2.1.0+ supports parent-child URL patterns natively
-      const entityMap: Record<string, string> = {
-        ticketId: 'ticketNotes',
-        projectId: 'projectNotes',
-        accountId: 'companyNotes',
+      // Autotask REST API requires sub-resource URLs (e.g. /Tickets/{id}/Notes) for note creation.
+      // The flat /TicketNotes endpoint returns "Resource not found" for valid tickets.
+      // Map parentField to the correct sub-resource path and body field name.
+      const urlMap: Record<string, { path: string; bodyField: string }> = {
+        ticketId:  { path: `Tickets/${parentId}/Notes`,   bodyField: 'ticketID' },
+        projectId: { path: `Projects/${parentId}/Notes`,  bodyField: 'projectID' },
+        accountId: { path: `Companies/${parentId}/Notes`, bodyField: 'companyID' },
       };
-      const entityName = entityMap[parentField];
-      if (!entityName) {
+      const mapping = urlMap[parentField];
+      if (!mapping) {
         throw new Error(`Unknown parent field for note creation: ${parentField}`);
       }
-      const entity = (client as any)[entityName];
-      const response = await entity.create(parentId, noteData);
-      const noteId = response.data?.id;
+      const noteData = { ...note, [mapping.bodyField]: parentId };
+      const axiosInstance = (client as any).axios;
+      const response = await axiosInstance.post(mapping.path, noteData);
+      const noteId = response.data?.itemId ?? response.data?.id;
       this.logger.info(`Note created with ID: ${noteId} for ${parentField}=${parentId}`);
       return noteId;
     } catch (error) {
