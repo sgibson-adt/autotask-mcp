@@ -1,3 +1,10 @@
+## [2.10.1](https://github.com/wyre-technology/autotask-mcp/compare/v2.10.0...v2.10.1) (2026-03-03)
+
+
+### Bug Fixes
+
+* **tickets:** use PATCH instead of PUT for updateTicket ([c0a0b7b](https://github.com/wyre-technology/autotask-mcp/commit/c0a0b7bf046831982a39e699857b278474258588))
+
 # [2.10.0](https://github.com/wyre-technology/autotask-mcp/compare/v2.9.0...v2.10.0) (2026-03-03)
 
 
