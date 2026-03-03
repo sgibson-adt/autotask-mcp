@@ -1,3 +1,10 @@
+## [2.10.2](https://github.com/wyre-technology/autotask-mcp/compare/v2.10.1...v2.10.2) (2026-03-03)
+
+
+### Bug Fixes
+
+* **deps:** bump autotask-node to main branch with endpoint semaphore fix ([35cef9c](https://github.com/wyre-technology/autotask-mcp/commit/35cef9c659f9e0b399f03ccabcd9c9ea75878228))
+
 ## [2.10.1](https://github.com/wyre-technology/autotask-mcp/compare/v2.10.0...v2.10.1) (2026-03-03)
 
 
