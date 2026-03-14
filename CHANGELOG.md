@@ -1,14 +1,16 @@
+## [2.11.5](https://github.com/wyre-technology/autotask-mcp/compare/v2.11.4...v2.11.5) (2026-03-13)
+
+
+### Bug Fixes
+
+* **deps:** update autotask-node with gzip compression body fix ([62a6373](https://github.com/wyre-technology/autotask-mcp/commit/62a6373)), closes [wyre-technology/autotask-node#151](https://github.com/wyre-technology/autotask-node/issues/151)
+
 ## [2.11.4](https://github.com/wyre-technology/autotask-mcp/compare/v2.11.3...v2.11.4) (2026-03-13)
 
 
 ### Bug Fixes
 
 * disable broken gzip compression and fix create ID parsing ([d6889f3](https://github.com/wyre-technology/autotask-mcp/commit/d6889f395b8b5327f976ac6cdda81ace4b6f6eed))
-
-## [Unreleased]
-
-### Bug Fixes
-
 * **tools:** return explicit "not found" error responses when API lookups return empty results to prevent LLM hallucination
 
 ## [2.11.2](https://github.com/wyre-technology/autotask-mcp/compare/v2.11.1...v2.11.2) (2026-03-12)
