@@ -1,3 +1,16 @@
+# [2.12.0] - 2026-03-15
+
+### Added
+
+- Bump `autotask-node` to [v2.2.0](https://github.com/wyre-technology/autotask-node/releases/tag/v2.2.0), which adds:
+  - Regular Time entry support via `createRegularTimeEntry()` and `createDirect()`
+  - Resource name resolution: `searchResources()`, `resolveResourceByName()`
+  - Internal billing code helpers: `getInternalBillingCodes()`, `resolveInternalBillingCodeByName()`
+
+### Fixed
+
+- Better 500/5xx error messages — Autotask API `errors` array details now surfaced in `ServerError`
+
 ## [2.11.5](https://github.com/wyre-technology/autotask-mcp/compare/v2.11.4...v2.11.5) (2026-03-13)
 
 
