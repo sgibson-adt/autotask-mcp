@@ -1,3 +1,10 @@
+## [2.14.1](https://github.com/wyre-technology/autotask-mcp/compare/v2.14.0...v2.14.1) (2026-03-22)
+
+
+### Bug Fixes
+
+* **docker:** pin npm to v10 to fix git dep install failure ([bab0dc8](https://github.com/wyre-technology/autotask-mcp/commit/bab0dc8f009011286231935f1833694fb4ef9377))
+
 # [2.14.0](https://github.com/wyre-technology/autotask-mcp/compare/v2.13.0...v2.14.0) (2026-03-22)
 
 
