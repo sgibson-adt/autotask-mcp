@@ -1,3 +1,17 @@
+# [2.15.0](https://github.com/wyre-technology/autotask-mcp/compare/v2.14.1...v2.15.0) (2026-03-25)
+
+
+### Bug Fixes
+
+* add missing required fields to task, project note, and project creation ([df72fb4](https://github.com/wyre-technology/autotask-mcp/commit/df72fb413e6e50e460a5864fd656d318ead622e1)), closes [wyre-technology/msp-claude-plugins#36](https://github.com/wyre-technology/msp-claude-plugins/issues/36) [#40](https://github.com/wyre-technology/autotask-mcp/issues/40) [#41](https://github.com/wyre-technology/autotask-mcp/issues/41) [#42](https://github.com/wyre-technology/autotask-mcp/issues/42) [wyre-technology/autotask-mcp#40](https://github.com/wyre-technology/autotask-mcp/issues/40) [wyre-technology/autotask-mcp#41](https://github.com/wyre-technology/autotask-mcp/issues/41) [wyre-technology/autotask-mcp#42](https://github.com/wyre-technology/autotask-mcp/issues/42)
+* **projects:** build searchProjects filters from individual params ([6e30860](https://github.com/wyre-technology/autotask-mcp/commit/6e30860f3fc475df7bd3a6623856bc6330d035f6)), closes [wyre-technology/msp-claude-plugins#36](https://github.com/wyre-technology/msp-claude-plugins/issues/36)
+* resolve merge conflict markers from squash merges ([6c152eb](https://github.com/wyre-technology/autotask-mcp/commit/6c152ebf7cb91a4fb19869d000ec6d1b93ad6a78)), closes [#43](https://github.com/wyre-technology/autotask-mcp/issues/43) [#44](https://github.com/wyre-technology/autotask-mcp/issues/44) [#45](https://github.com/wyre-technology/autotask-mcp/issues/45)
+
+
+### Features
+
+* add Service Call support (11 new tools) ([11b682e](https://github.com/wyre-technology/autotask-mcp/commit/11b682e678c42c89c3ef963b1ca826ff653ea6b6)), closes [#38](https://github.com/wyre-technology/autotask-mcp/issues/38)
+
 ## [2.14.1](https://github.com/wyre-technology/autotask-mcp/compare/v2.14.0...v2.14.1) (2026-03-22)
 
 
