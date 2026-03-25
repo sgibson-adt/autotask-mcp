@@ -2523,12 +2523,7 @@ export const TOOL_CATEGORIES: Record<string, { description: string; tools: strin
     tools: ['autotask_get_company_note', 'autotask_search_company_notes', 'autotask_create_company_note']
   },
   service_calls: {
-<<<<<<< Updated upstream
-    description: 'Create, update, and manage service calls, their linked tickets, and resource assignments',
-    tools: ['autotask_get_service_call', 'autotask_search_service_calls', 'autotask_create_service_call', 'autotask_update_service_call', 'autotask_delete_service_call', 'autotask_search_service_call_tickets', 'autotask_create_service_call_ticket', 'autotask_delete_service_call_ticket', 'autotask_search_service_call_ticket_resources', 'autotask_create_service_call_ticket_resource', 'autotask_delete_service_call_ticket_resource']
-=======
     description: 'Service call dispatching, ticket linking, and resource assignments',
     tools: ['autotask_search_service_calls', 'autotask_get_service_call', 'autotask_create_service_call', 'autotask_update_service_call', 'autotask_delete_service_call', 'autotask_search_service_call_tickets', 'autotask_create_service_call_ticket', 'autotask_delete_service_call_ticket', 'autotask_search_service_call_ticket_resources', 'autotask_create_service_call_ticket_resource', 'autotask_delete_service_call_ticket_resource']
->>>>>>> Stashed changes
   }
 };
