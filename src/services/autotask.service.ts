@@ -2125,14 +2125,24 @@ export class AutotaskService {
       }
 
       const pageSize = Math.min(options.pageSize || 25, 500);
-      const queryOptions = {
-        filter: filters,
-        pageSize,
-        ...(options.page && { page: options.page }),
-      };
 
-      const result = await client.timeEntries.list(queryOptions);
-      const timeEntries = (result.data as AutotaskTimeEntry[]) || [];
+      // WORKAROUND: client.timeEntries.list() silently ignores filter parameters
+      // (same root cause as searchProjects — the autotask-node list() method does not
+      // correctly forward the filter array to the Autotask REST query endpoint).
+      // Bypass it and call POST /TimeEntries/query directly, like searchProjects does.
+      const searchBody: Record<string, any> = {
+        filter: filters,
+        MaxRecords: pageSize,
+      };
+      if (options.page) searchBody['page'] = options.page;
+
+      const response = await (client as any).axios.post('/TimeEntries/query', searchBody);
+      let timeEntries: AutotaskTimeEntry[] = [];
+      if (response.data && response.data.items) {
+        timeEntries = response.data.items as AutotaskTimeEntry[];
+      } else if (Array.isArray(response.data)) {
+        timeEntries = response.data as AutotaskTimeEntry[];
+      }
 
       this.logger.info(`Retrieved ${timeEntries.length} time entries (page ${options.page || 1}, pageSize ${pageSize})`);
       return timeEntries;
