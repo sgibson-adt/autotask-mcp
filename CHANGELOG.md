@@ -1,3 +1,10 @@
+## [2.17.1](https://github.com/wyre-technology/autotask-mcp/compare/v2.17.0...v2.17.1) (2026-04-06)
+
+
+### Bug Fixes
+
+* resolve Docker build failure caused by prepare script running before source copy ([87b0a0c](https://github.com/wyre-technology/autotask-mcp/commit/87b0a0cfde754bfe0f98980893834db6afd0eed1))
+
 # [2.17.0](https://github.com/wyre-technology/autotask-mcp/compare/v2.16.1...v2.17.0) (2026-04-06)
 
 
