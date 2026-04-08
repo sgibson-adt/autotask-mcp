@@ -2148,11 +2148,11 @@ export class AutotaskService {
   }
 
   async getDepartment(_id: number): Promise<AutotaskDepartment | null> {
-    throw new Error('Departments API not directly exposed by Autotask REST');
+    throw new Error('Departments API not directly available in Autotask REST');
   }
 
   async searchDepartments(_options: AutotaskQueryOptionsExtended = {}): Promise<AutotaskDepartment[]> {
-    throw new Error('Departments API not directly exposed by Autotask REST');
+    throw new Error('Departments API not directly available in Autotask REST');
   }
 
   // =====================================================
