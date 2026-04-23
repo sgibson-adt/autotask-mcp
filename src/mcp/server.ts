@@ -245,12 +245,34 @@ export class AutotaskMcpServer {
     this.httpServer = createServer((req: IncomingMessage, res: ServerResponse) => {
       const url = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
 
+      // CORS headers applied to every response so browser-based MCP clients
+      // (e.g. claude.ai custom connectors) can reach the server. '*' is safe
+      // because credentials are carried via request headers, not cookies.
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, DELETE');
+      res.setHeader(
+        'Access-Control-Allow-Headers',
+        'Content-Type, Accept, Authorization, Mcp-Session-Id, X-API-Key, X-API-Secret, X-Integration-Code'
+      );
+      res.setHeader('Access-Control-Max-Age', '86400');
+
+      // CORS preflight — respond before routing so every path (including /mcp)
+      // answers OPTIONS with 204 and the headers above.
+      if (req.method === 'OPTIONS') {
+        res.writeHead(204);
+        res.end();
+        return;
+      }
+
       // Health endpoint - no auth required
       if (url.pathname === '/health') {
         res.writeHead(200, { 'Content-Type': 'application/json' });
+        // `mcpTransport` (not `transport`) to avoid confusion with the network
+        // scheme — the value refers to the MCP transport type (stdio vs
+        // Streamable HTTP), not whether the service is served over HTTP/HTTPS.
         res.end(JSON.stringify({
           status: 'ok',
-          transport: 'http',
+          mcpTransport: 'http',
           authMode: isGatewayMode ? 'gateway' : 'env',
           timestamp: new Date().toISOString()
         }));
