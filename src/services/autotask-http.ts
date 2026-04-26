@@ -32,6 +32,23 @@ interface QueryResponse<T> {
   pageDetails?: PageDetails;
 }
 
+const RAW_REQUEST_METHODS = ['GET', 'POST', 'PATCH', 'DELETE'] as const;
+
+function assertSafeRelativePath(path: string): void {
+  if (typeof path !== 'string' || path.length === 0) {
+    throw new Error('Autotask rawRequest: path must be a non-empty string');
+  }
+  if (
+    !path.startsWith('/') ||
+    path.startsWith('//') ||
+    path.includes('\\') ||
+    /:\/\//.test(path) ||
+    path.includes('..')
+  ) {
+    throw new Error('Autotask rawRequest: path must be a relative path beginning with "/" (no scheme, host, or traversal)');
+  }
+}
+
 /**
  * Minimal HTTP client for the Autotask REST API.
  *
@@ -121,6 +138,45 @@ export class AutotaskHttpClient {
     } catch {
       return undefined as unknown as T;
     }
+  }
+
+  /**
+   * Generic passthrough for any Autotask REST endpoint. The escape hatch is
+   * tool-callable, so auth headers must only ever go to the zone-resolved
+   * host — validation, method allowlist, and a final host assertion enforce
+   * that independently.
+   */
+  async rawRequest<T = any>(
+    method: string,
+    path: string,
+    body?: any,
+    queryParams?: Record<string, string | number | boolean>
+  ): Promise<T> {
+    const upperMethod = method.toUpperCase();
+    if (!(RAW_REQUEST_METHODS as readonly string[]).includes(upperMethod)) {
+      throw new Error(`Autotask rawRequest: method must be one of ${RAW_REQUEST_METHODS.join(', ')}`);
+    }
+    assertSafeRelativePath(path);
+
+    let finalPath = path;
+    if (queryParams && Object.keys(queryParams).length > 0) {
+      const params = new URLSearchParams();
+      for (const [k, v] of Object.entries(queryParams)) {
+        if (v !== undefined && v !== null) params.append(k, String(v));
+      }
+      const qs = params.toString();
+      if (qs) {
+        finalPath = `${finalPath}${finalPath.includes('?') ? '&' : '?'}${qs}`;
+      }
+    }
+
+    const base = await this.baseUrl();
+    const absoluteUrl = `${base}${finalPath}`;
+    if (new URL(absoluteUrl).host !== new URL(base).host) {
+      throw new Error('Autotask rawRequest: refusing to send to non-zone host');
+    }
+
+    return this.request<T>(upperMethod, absoluteUrl, body);
   }
 
   /**
